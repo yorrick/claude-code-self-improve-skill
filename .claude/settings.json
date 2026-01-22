@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "SessionEnd": [{
+      "hooks": [{
+        "type": "command",
+        "command": ".claude/skills/reflect/session_end_hook.py"
+      }]
+    }]
+  }
+}

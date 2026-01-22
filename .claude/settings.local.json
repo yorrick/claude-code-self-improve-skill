@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ruff format:*)",
+      "Bash(ruff check:*)",
+      "Bash(uvx ruff format:*)",
+      "Bash(uvx ruff check:*)",
+      "Bash(uvx pyright:*)"
+    ]
+  }
+}
