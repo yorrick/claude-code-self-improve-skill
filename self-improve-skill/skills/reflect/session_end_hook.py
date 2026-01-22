@@ -12,8 +12,8 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
-LOG_DIR = Path(__file__).parent / ".logs"
-LOG_DIR.mkdir(exist_ok=True)
+LOG_DIR = Path.cwd() / ".claude" / ".logs" / "reflect"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 LOG_FILE: Path | None = None
 
 
