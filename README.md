@@ -15,7 +15,7 @@ First, add this repository as a marketplace:
 Then install the plugin:
 
 ```
-/plugin install self-improve-skill@yorrick-claude-code-self-improve-skill
+/plugin install self-improve-skill@self-improve-skill
 ```
 
 You can choose the installation scope:
