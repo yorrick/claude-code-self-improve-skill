@@ -9,13 +9,13 @@ A Claude Code plugin that automatically reflects on skills used during sessions 
 First, add this repository as a marketplace:
 
 ```
-/plugin marketplace add yorrick/claude-code-self-improve-skill
+/plugin marketplace add yorrick/claude-code-plugins
 ```
 
 Then install the plugin:
 
 ```
-/plugin install self-improve-skill@self-improve-skill
+/plugin install yorrick@self-improve-skill
 ```
 
 You can choose the installation scope:
