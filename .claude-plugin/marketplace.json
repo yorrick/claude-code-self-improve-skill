@@ -1,10 +1,10 @@
 {
-  "name": "self-improve-skill",
+  "name": "yorrick",
   "owner": {
     "name": "Yorrick Jansen"
   },
   "metadata": {
-    "description": "Plugin that automatically reflects on skills and proposes improvements"
+    "description": "Collection of Claude Code plugins by Yorrick Jansen"
   },
   "plugins": [
     {
