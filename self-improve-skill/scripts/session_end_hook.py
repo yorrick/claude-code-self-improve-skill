@@ -20,6 +20,10 @@ LOG_DIR = Path.cwd() / ".claude" / ".logs" / "reflect"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 LOG_FILE: Path | None = None
 
+# Skills directory is in the project's .claude/skills folder (where the session runs)
+# Path.cwd() is the project directory where claude was invoked
+PROJECT_SKILLS_DIR = Path.cwd() / ".claude" / "skills"
+
 
 def init_log_file(session_id: str) -> None:
     """Initialize the log file with session ID and timestamp."""
@@ -34,6 +38,22 @@ def log(message: str) -> None:
         return
     with LOG_FILE.open("a") as f:
         f.write(message + "\n")
+
+
+def is_valid_skill(skill_name: str) -> bool:
+    """Check if the skill name corresponds to an actual skill in the project.
+
+    This filters out built-in CLI commands like /exit, /plugin, /help, etc.
+    Only skills with a directory in the project's .claude/skills/ folder are valid.
+
+    Args:
+        skill_name: The potential skill name to validate.
+
+    Returns:
+        True if the skill exists in the project's skills directory, False otherwise.
+    """
+    skill_path = PROJECT_SKILLS_DIR / skill_name
+    return skill_path.is_dir()
 
 
 def extract_skills_from_transcript(transcript_content: str) -> set[str]:
@@ -200,10 +220,18 @@ def main() -> None:
     for skill in sorted(skill_paths):
         log(f"  {skill}")
 
-    # Extract skills actually used in the session (excluding 'reflect' to avoid loops)
-    log("--- Skills used in session ---")
-    skills_used = extract_skills_from_transcript(transcript_content)
-    skills_used.discard("reflect")  # Avoid infinite loops
+    # Extract skills actually used in the session
+    log("--- Skills detected in session ---")
+    skills_detected = extract_skills_from_transcript(transcript_content)
+    for skill in sorted(skills_detected):
+        log(f"  {skill}")
+
+    # Filter to only valid skills in the project (excludes built-in commands like /exit, /plugin)
+    log("--- Valid skills (in project's .claude/skills/ directory) ---")
+    log(f"  Project skills directory: {PROJECT_SKILLS_DIR}")
+    skills_used = {s for s in skills_detected if is_valid_skill(s)}
+    # Exclude 'reflect' to avoid infinite loops
+    skills_used.discard("reflect")
     for skill in sorted(skills_used):
         log(f"  {skill}")
 
