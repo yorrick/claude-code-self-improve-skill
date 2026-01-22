@@ -1,7 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.8"
-# ///
 """Reflect Skill - End of Session Hook.
 
 Receives JSON via stdin with transcript_path.
@@ -94,7 +90,9 @@ def extract_skills_from_transcript(transcript_content: str) -> set[str]:
     return skills
 
 
-def run_reflect_for_skill(skill_name: str, session_id: str, transcript_path: Path) -> None:
+def run_reflect_for_skill(
+    skill_name: str, session_id: str, transcript_path: Path
+) -> None:
     """Run claude -p '/reflect <skill-name>' for the given skill in background.
 
     Passes the transcript file as stdin for context.
@@ -107,8 +105,12 @@ def run_reflect_for_skill(skill_name: str, session_id: str, transcript_path: Pat
     log(f"Launching background reflection for skill: {skill_name}")
     try:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        stdout_file = LOG_DIR / f"{timestamp}_{session_id}_reflect_{skill_name}.stdout.log"
-        stderr_file = LOG_DIR / f"{timestamp}_{session_id}_reflect_{skill_name}.stderr.log"
+        stdout_file = (
+            LOG_DIR / f"{timestamp}_{session_id}_reflect_{skill_name}.stdout.log"
+        )
+        stderr_file = (
+            LOG_DIR / f"{timestamp}_{session_id}_reflect_{skill_name}.stderr.log"
+        )
 
         with (
             transcript_path.open("r") as stdin_f,
@@ -121,9 +123,12 @@ def run_reflect_for_skill(skill_name: str, session_id: str, transcript_path: Pat
             subprocess.Popen(
                 [
                     "claude",
-                    "--add-dir", str(skills_dir),
-                    "--permission-mode", "bypassPermissions",
-                    "-p", f"/reflect {skill_name} --non-interactive",
+                    "--add-dir",
+                    str(skills_dir),
+                    "--permission-mode",
+                    "bypassPermissions",
+                    "-p",
+                    f"/reflect {skill_name} --non-interactive",
                 ],
                 stdout=stdout_f,
                 stderr=stderr_f,
