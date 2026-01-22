@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/skills/reflect/session_end_hook.py"
+            "command": "uv run ${CLAUDE_PLUGIN_ROOT}/skills/reflect/session_end_hook.py"
           }
         ]
       }

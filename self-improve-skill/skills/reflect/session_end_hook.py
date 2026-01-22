@@ -1,3 +1,7 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.8"
+# ///
 """Reflect Skill - End of Session Hook.
 
 Receives JSON via stdin with transcript_path.
