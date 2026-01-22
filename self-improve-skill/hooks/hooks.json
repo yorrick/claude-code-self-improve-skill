@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run ${CLAUDE_PLUGIN_ROOT}/skills/self-improve-skill/scripts/session_end_hook.py"
+            "command": "uv run ${CLAUDE_PLUGIN_ROOT}/scripts/session_end_hook.py"
           }
         ]
       }
