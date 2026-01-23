@@ -230,8 +230,6 @@ def main() -> None:
     log("--- Valid skills (in project's .claude/skills/ directory) ---")
     log(f"  Project skills directory: {PROJECT_SKILLS_DIR}")
     skills_used = {s for s in skills_detected if is_valid_skill(s)}
-    # Exclude 'reflect' to avoid infinite loops
-    skills_used.discard("reflect")
     for skill in sorted(skills_used):
         log(f"  {skill}")
 
